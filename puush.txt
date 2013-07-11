@@ -1,0 +1,12 @@
+########################################
+# This is an example puush.txt file. Add
+# your puush links one per line after
+# the end of this comment section. Lines
+# starting with a '#' are ignored.
+########################################
+
+# Example puush link (delete the line or
+# add a # to comment it out):
+http://puu.sh/xptk
+
+#Add your links below:
