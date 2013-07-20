@@ -1,5 +1,5 @@
 /*******************************************************************************
- * Copyright (c) 2013 Andreas Holley
+ * Copyright 2013 Andreas
  * 
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -13,7 +13,11 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  ******************************************************************************/
+package im.duk.puushsaver;
+
+import java.awt.BorderLayout;
 import java.awt.Dimension;
+import java.awt.Toolkit;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.io.BufferedReader;
@@ -30,6 +34,9 @@ import java.util.Scanner;
 
 import javax.swing.JButton;
 import javax.swing.JFrame;
+import javax.swing.JMenu;
+import javax.swing.JMenuBar;
+import javax.swing.JMenuItem;
 import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import javax.swing.JScrollPane;
@@ -53,10 +60,33 @@ public class Main implements ActionListener {
 	}
 
 	public void inigui() {
-
+		
 		frame = new JFrame("Puush Saver");
 		frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 
+		frame.setIconImage(Toolkit.getDefaultToolkit().getImage(
+				Main.class.getResource("/im/duk/puushsaver/puush.png")));
+		
+		JMenuBar menuBar = new JMenuBar();
+		JMenu fileMenu = new JMenu("File");
+		JMenuItem editPuushTxt = new JMenuItem("Edit puush.txt");
+		editPuushTxt.addActionListener(new ActionListener() {
+			
+			@Override
+			public void actionPerformed(ActionEvent e) {
+				try {
+					java.awt.Desktop.getDesktop().edit(new File("puush.txt"));
+				} catch (IOException e1) {
+					JOptionPane.showMessageDialog(frame, "Unable to open puush.txt.");
+					e1.printStackTrace();
+				}
+			}
+		});
+		
+		frame.add(menuBar, BorderLayout.NORTH);
+		menuBar.add(fileMenu);
+		fileMenu.add(editPuushTxt);
+		
 		JPanel panel = new JPanel();
 		panel.setPreferredSize(new Dimension(320, 174));
 
@@ -96,7 +126,7 @@ public class Main implements ActionListener {
 			BufferedReader br = new BufferedReader(fr);
 			String s;
 			while ((s = br.readLine()) != null) {
-				if (!s.startsWith("#") && !(s.trim().length() ==0)) {
+				if (!s.startsWith("#") && !(s.trim().length() == 0)) {
 					puushes.add(s);
 					n++;
 				}
