@@ -20,6 +20,7 @@ import java.awt.Dimension;
 import java.awt.Toolkit;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.awt.event.KeyEvent;
 import java.io.BufferedReader;
 import java.io.File;
 import java.io.FileNotFoundException;
@@ -42,13 +43,18 @@ import javax.swing.JPanel;
 import javax.swing.JScrollPane;
 import javax.swing.JTextArea;
 import javax.swing.SwingUtilities;
+import javax.swing.UIManager;
+import javax.swing.UnsupportedLookAndFeelException;
 
 public class Main implements ActionListener {
 	JTextArea textArea;
 	JFrame frame;
 	ArrayList<String> puushes;
-
+	
 	public static void main(String[] args) {
+		
+		setLookAndFeel();
+		
 		SwingUtilities.invokeLater(new Runnable() {
 			final Main main = new Main();
 
@@ -59,8 +65,26 @@ public class Main implements ActionListener {
 		});
 	}
 
+	private static void setLookAndFeel() {
+		// TODO Auto-generated method stub
+		try {
+			UIManager.setLookAndFeel(UIManager.getCrossPlatformLookAndFeelClassName());
+		} catch (ClassNotFoundException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		} catch (InstantiationException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		} catch (IllegalAccessException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		} catch (UnsupportedLookAndFeelException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+	}
+
 	public void inigui() {
-		
 		frame = new JFrame("Puush Saver");
 		frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 
@@ -69,6 +93,7 @@ public class Main implements ActionListener {
 		
 		JMenuBar menuBar = new JMenuBar();
 		JMenu fileMenu = new JMenu("File");
+		fileMenu.setMnemonic(KeyEvent.VK_ALT);
 		JMenuItem editPuushTxt = new JMenuItem("Edit puush.txt");
 		editPuushTxt.addActionListener(new ActionListener() {
 			
