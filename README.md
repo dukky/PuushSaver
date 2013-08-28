@@ -9,4 +9,4 @@ A program designed to keep your puushes accessible for longer than the 1 month t
 Download the latest [release](https://github.com/dukky/PuushSaver/releases).
 
 ###Usage
-Add your puush links one per line to puush.txt.
+Add your puush links one per line to puush.txt, see the comments in the file for instructions. Any new puush link that enters the clipboard will also be added.

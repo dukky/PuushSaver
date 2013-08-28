@@ -50,11 +50,11 @@ public class Main implements ActionListener {
 	JTextArea textArea;
 	JFrame frame;
 	ArrayList<String> puushes;
-	
+
 	public static void main(String[] args) {
-		
+
 		setLookAndFeel();
-		
+
 		SwingUtilities.invokeLater(new Runnable() {
 			final Main main = new Main();
 
@@ -68,7 +68,8 @@ public class Main implements ActionListener {
 	private static void setLookAndFeel() {
 		// TODO Auto-generated method stub
 		try {
-			UIManager.setLookAndFeel(UIManager.getCrossPlatformLookAndFeelClassName());
+			UIManager.setLookAndFeel(UIManager
+					.getCrossPlatformLookAndFeelClassName());
 		} catch (ClassNotFoundException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
@@ -90,28 +91,30 @@ public class Main implements ActionListener {
 
 		frame.setIconImage(Toolkit.getDefaultToolkit().getImage(
 				Main.class.getResource("/im/duk/puushsaver/puush.png")));
-		
+
 		JMenuBar menuBar = new JMenuBar();
 		JMenu fileMenu = new JMenu("File");
 		fileMenu.setMnemonic(KeyEvent.VK_ALT);
 		JMenuItem editPuushTxt = new JMenuItem("Edit puush.txt");
 		editPuushTxt.addActionListener(new ActionListener() {
-			
+
 			@Override
 			public void actionPerformed(ActionEvent e) {
 				try {
+					// FIXME don't open in notepad
 					java.awt.Desktop.getDesktop().edit(new File("puush.txt"));
 				} catch (IOException e1) {
-					JOptionPane.showMessageDialog(frame, "Unable to open puush.txt.");
+					JOptionPane.showMessageDialog(frame,
+							"Unable to open puush.txt.");
 					e1.printStackTrace();
 				}
 			}
 		});
-		
+
 		frame.add(menuBar, BorderLayout.NORTH);
 		menuBar.add(fileMenu);
 		fileMenu.add(editPuushTxt);
-		
+
 		JPanel panel = new JPanel();
 		panel.setPreferredSize(new Dimension(320, 174));
 
@@ -140,9 +143,10 @@ public class Main implements ActionListener {
 		frame.setVisible(true);
 
 		readPuushes();
+		new PuushClipboardListener(this).start();
 	}
 
-	private void readPuushes() {
+	public void readPuushes() {
 		File f = new File("puush.txt");
 		puushes = new ArrayList<>();
 		int n = 0;
